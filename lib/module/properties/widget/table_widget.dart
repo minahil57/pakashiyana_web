@@ -1,3 +1,4 @@
+import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
 
 class TableWidget extends StatelessWidget {
@@ -5,55 +6,57 @@ class TableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(PropertiesController());
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 0,
-            blurRadius: 10,
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Theme(
-          data: ThemeData(dividerColor: Colors.grey.withOpacity(0.1)),
-          child: DataTable2(
-            columnSpacing: 24,
-            horizontalMargin: 24,
-            headingRowHeight: 60,
-            dataRowHeight: 120,
-            columns: const [
-              DataColumn2(
-                label: Text('Property',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                size: ColumnSize.L,
-              ),
-              DataColumn(
-                label: Text('Details',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              DataColumn(
-                label: Text('Status',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              DataColumn(
-                label: Text('Price',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              DataColumn(
-                label: Text('Actions',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ],
-            rows: controller.properties
-                .map((property) => _buildPropertyRow(property))
-                .toList(),
-            empty: const BuildEmptyProperty(),
+    Get.put(PropertiesController());
+    return GetBuilder<PropertiesController>(
+      builder: (controller) => Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 0,
+              blurRadius: 10,
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Theme(
+            data: ThemeData(dividerColor: Colors.grey.withOpacity(0.1)),
+            child: DataTable2(
+              columnSpacing: 24,
+              horizontalMargin: 24,
+              headingRowHeight: 60,
+              dataRowHeight: 120,
+              columns: const [
+                DataColumn2(
+                  label: Text('Property',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  size: ColumnSize.L,
+                ),
+                DataColumn(
+                  label: Text('Details',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                DataColumn(
+                  label: Text('Status',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                DataColumn(
+                  label: Text('Price',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+                DataColumn(
+                  label: Text('Actions',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ],
+              rows: properties
+                  .map((property) => _buildPropertyRow(property))
+                  .toList(),
+              empty: const BuildEmptyProperty(),
+            ),
           ),
         ),
       ),
@@ -62,7 +65,7 @@ class TableWidget extends StatelessWidget {
 
   DataRow _buildPropertyRow(PropertyModel property) {
     final formatter = NumberFormat('#,###');
-
+    Get.put(PropertiesController());
     return DataRow(
       cells: [
         DataCell(
@@ -138,8 +141,10 @@ class TableWidget extends StatelessWidget {
               const SizedBox(height: 4),
               _buildStatusBadge('Promoted', property.isPromoted),
               const SizedBox(height: 4),
-              _buildStatusBadge('Blacklist', property.isBlacklisted,
-                  inverse: true),
+              _buildStatusBadge(
+                'Blacklist',
+                property.isBlacklisted,
+              ),
             ],
           ),
         ),
@@ -153,49 +158,58 @@ class TableWidget extends StatelessWidget {
           ),
         ),
         DataCell(
-          FittedBox(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.visibility_outlined),
-                  onPressed: () => _showPropertyDetails(property),
-                  tooltip: 'View Details',
-                  color: const Color(0xFF1A237E),
-                ),
-                IconButton(
-                  icon: Icon(
-                    property.isApproved
-                        ? Icons.unpublished_outlined
-                        : Icons.check_circle_outlined,
+          GetBuilder<PropertiesController>(builder: (controller) {
+            return FittedBox(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      property.isApproved
+                          ? Icons.unpublished_outlined
+                          : Icons.check_circle_outlined,
+                    ),
+                    onPressed: () {
+                      controller.propertyService.makePropertyACtive(
+                          property.propertyId, property.isApproved);
+                      controller.refreshProperties();
+                    },
+                    tooltip: property.isApproved ? 'Deactivate' : 'Activate',
+                    color: property.isApproved ? Colors.red : Colors.green,
                   ),
-                  onPressed: () => _togglePropertyStatus(property),
-                  tooltip: property.isApproved ? 'Deactivate' : 'Activate',
-                  color: property.isApproved ? Colors.red : Colors.green,
-                ),
-                IconButton(
-                  icon: Icon(
-                    property.isPromoted ? Icons.star : Icons.star_border,
+                  IconButton(
+                    icon: Icon(
+                      property.isPromoted ? Icons.star : Icons.star_border,
+                    ),
+                    onPressed: () {
+                      controller.propertyService.makePropertyPromoted(
+                          property.propertyId, property.isPromoted);
+                      controller.refreshProperties();
+                    },
+                    tooltip:
+                        property.isPromoted ? 'Remove Promotion' : 'Promote',
+                    color: const Color(0xFFFFD700),
                   ),
-                  onPressed: () => _togglePromoted(property),
-                  tooltip: property.isPromoted ? 'Remove Promotion' : 'Promote',
-                  color: const Color(0xFFFFD700),
-                ),
-                IconButton(
-                  icon: Icon(
-                    property.isBlacklisted
-                        ? Icons.remove_circle_outline
-                        : Icons.block,
+                  IconButton(
+                    icon: Icon(
+                      property.isBlacklisted
+                          ? Icons.remove_circle_outline
+                          : Icons.block,
+                    ),
+                    onPressed: () {
+                      controller.propertyService.makePropertyBlackListed(
+                          property.propertyId, property.isBlacklisted);
+                      controller.refreshProperties();
+                    },
+                    tooltip: property.isBlacklisted
+                        ? 'Remove from Blacklist'
+                        : 'Blacklist',
+                    color: Colors.red,
                   ),
-                  onPressed: () => _toggleBlacklist(property),
-                  tooltip: property.isBlacklisted
-                      ? 'Remove from Blacklist'
-                      : 'Blacklist',
-                  color: Colors.red,
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          }),
         ),
       ],
     );
@@ -236,8 +250,6 @@ class TableWidget extends StatelessWidget {
     );
   }
 
-
-
   String _getAreaUnit(int unit) {
     switch (unit) {
       case 0:
@@ -249,9 +261,7 @@ class TableWidget extends StatelessWidget {
     }
   }
 
-  void _showPropertyDetails(PropertyModel property) {
-    // Implement property details modal
-  }
+  void showPropertyDetails(PropertyModel property) {}
 
   void _togglePropertyStatus(PropertyModel property) {
     // Implement status toggle

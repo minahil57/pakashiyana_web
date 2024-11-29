@@ -23,6 +23,9 @@ class PropertyModel {
   int builtIn;
   String uid;
   DateTime createdAt;
+  List<dynamic> userViews;
+  String state;
+  String city;
 
   PropertyModel({
     required this.amenities,
@@ -46,8 +49,11 @@ class PropertyModel {
     required this.propertyTitle,
     required this.propertyType,
     required this.titleImage,
+    required this.state,
+    required this.city,
     required this.uid,
     required this.builtIn,
+    required this.userViews,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -76,38 +82,45 @@ class PropertyModel {
       'title_image': titleImage,
       'uid': uid,
       'built_in': builtIn,
-      'id': propertyId
+      'id': propertyId,
+      'property_views': userViews,
+      'state': state,
+      'city': city
     };
   }
 
   // Create a PropertyModel instance from a Map
   factory PropertyModel.fromMap(Map<String, dynamic> map) {
     return PropertyModel(
-        amenities: List<String>.from(map['amenities']),
-        areaSize: map['area_size'] ?? 0,
-        areaUnit: map['area_unit'] ?? 0,
-        bathrooms: map['bathrooms'] ?? 0,
-        propertState: map['propert_state'] ?? '',
-        propertyStatus: map['property_status'] ?? '',
-        titleImage: map['title_image'] ?? '',
-        bedrooms: map['bedrooms'] ?? 0,
-        category: map['property_category'] ?? '',
-        description: map['property_description'] ?? '',
-        isApproved: map['is_active'] ?? false,
-        isBlacklisted: map['is_blacklisted'] ?? false,
-        isPromoted: map['is_promoted'] ?? false,
-        createdAt: map['created_at'] != null
-            ? DateTime.parse(map['created_at'])
-            : DateTime.now(),
-        location: map['propery_location'] ?? '',
-        phoneNo: map['phone_number'] ?? '',
-        price: map['property_price'] ?? 0,
-        propertyFor: map['property_for'] ?? '',
-        propertyId: map['id'] ?? '',
-        propertyImages: List<String>.from(map['property_images'] ?? []),
-        propertyTitle: map['property_title'] ?? '',
-        propertyType: map['property_type'] ?? '',
-        uid: map['uid'] ?? '',
-        builtIn: map['built_in'] ?? 0);
+      amenities: List<String>.from(map['amenities']),
+      areaSize: map['area_size'] ?? 0,
+      areaUnit: map['area_unit'] ?? 0,
+      bathrooms: map['bathrooms'] ?? 0,
+      propertState: map['propert_state'] ?? '',
+      propertyStatus: map['property_status'] ?? '',
+      titleImage: map['title_image'] ?? '',
+      bedrooms: map['bedrooms'] ?? 0,
+      category: map['property_category'] ?? '',
+      description: map['property_description'] ?? '',
+      isApproved: map['is_active'] ?? false,
+      isBlacklisted: map['is_blacklisted'] ?? false,
+      isPromoted: map['is_promoted'] ?? false,
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at'])
+          : DateTime.now(),
+      location: map['propery_location'] ?? '',
+      phoneNo: map['phone_number'] ?? '',
+      price: map['property_price'] ?? 0,
+      propertyFor: map['property_for'] ?? '',
+      propertyId: map['id'] ?? '',
+      propertyImages: List<String>.from(map['property_images'] ?? []),
+      propertyTitle: map['property_title'] ?? '',
+      propertyType: map['property_type'] ?? '',
+      uid: map['uid'] ?? '',
+      builtIn: map['built_in'] ?? 0,
+      userViews: map['property_views'] ?? [],
+      state: map['state'] ?? '',
+      city: map['city'] ?? '',
+    );
   }
 }

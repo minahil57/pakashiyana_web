@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
 class BuildEnhancedMetricCard extends StatelessWidget {
-   final String title;
-   final  String value;
-    final IconData icon;
-  final  Color color;
-   final String subtitle;
-  const BuildEnhancedMetricCard( {super.key, required this.title, required this.value, required this.icon, required this.color, required this.subtitle});
+  final String title;
+  final String value;
+  final IconData icon;
+  final Color color;
+  const BuildEnhancedMetricCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return   Container(
+    return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -58,15 +63,6 @@ class BuildEnhancedMetricCard extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-          const SizedBox(height: 5),
-          Text(
-            subtitle,
-            style: TextStyle(
-              color: color,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
           ),
         ],
       ),

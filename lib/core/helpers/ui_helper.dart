@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:global_expert/export.dart';
 
 const double _tinySize = 5;

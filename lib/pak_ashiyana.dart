@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/export.dart';
 
 class PakAshiyana extends StatelessWidget {
@@ -14,6 +15,7 @@ class PakAshiyana extends StatelessWidget {
       fallbackLocale: const Locale('en_US'),
       translations: CustomTranslations(),
       defaultTransition: Transition.cupertino,
+      builder: EasyLoading.init(),
       initialRoute: AppRouter.initialRoute,
       getPages: AppRouter.pages(),
     );
