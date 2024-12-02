@@ -1,5 +1,4 @@
 import 'package:global_expert/module/properties/widget/category_selector.dart';
-import 'package:global_expert/module/properties/widget/selector_tabs.dart';
 
 import '../../../export.dart';
 
@@ -8,10 +7,10 @@ class AddProperty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Padding(
-      padding: const EdgeInsets.all(10),
-      child: const Column(
+      padding: EdgeInsets.all(10),
+      child: Column(
         children: [
           CategorySelector(),
           verticalSpaceMedium,

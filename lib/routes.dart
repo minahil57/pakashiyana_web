@@ -18,7 +18,7 @@ class AppRouter {
       GetPage(name: Routes.login, page: () => const LoginView()),
       GetPage(name: Routes.dashboard, page: () => const AdminDashboard()),
       GetPage(name: Routes.splash, page: () => const SplashView()),
-      GetPage(name: Routes.users, page: () => UserManagementScreen()),
+      GetPage(name: Routes.users, page: () => const UserManagementScreen()),
       GetPage(
           name: Routes.properties,
           page: () => const PropertyManagementScreen()),

@@ -18,7 +18,7 @@ class GridMetrics extends StatelessWidget {
         children: [
           BuildEnhancedMetricCard(
             title: 'Total Users',
-            value: controller.metrics['totalUsers'].toString(),
+            value: controller.users.length.toString(),
             icon: Icons.people_outline,
             color: kcPrimaryColor,
           ),

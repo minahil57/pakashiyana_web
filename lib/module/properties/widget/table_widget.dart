@@ -150,7 +150,7 @@ class TableWidget extends StatelessWidget {
         ),
         DataCell(
           Text(
-            '\Rs-${formatter.format(property.price)}',
+            'Rs-${formatter.format(property.price)}',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,

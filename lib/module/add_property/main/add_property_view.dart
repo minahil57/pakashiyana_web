@@ -6,6 +6,6 @@ class AddPropertyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyLayout(child: const Text('AddPropertyScreen'));
+    return const MyLayout(child: Text('AddPropertyScreen'));
   }
 }

@@ -2,16 +2,19 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
 import 'package:global_expert/services/get_properties_services.dart';
+import 'package:global_expert/services/get_users.dart';
 
 class DashboardController extends GetxController {
   PropertyUploadService propertyService = PropertyUploadService();
-
+  GetUsers getUsers = GetUsers();
+  List<UserData> users = [];
   @override
   void onInit() async {
     await propertyService
         .getProperties()
         .then((value) => properties.value = value);
     propertyService.getCities();
+    users = await getUsers.fetchUsers();
     update();
     super.onInit();
   }

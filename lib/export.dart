@@ -8,6 +8,7 @@ export 'package:get/get.dart';
 export 'package:pinput/pinput.dart';
 export 'package:data_table_2/data_table_2.dart';
 export 'package:intl/intl.dart' hide TextDirection;
+export 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
 
 //In app Exports
 export 'main.dart';

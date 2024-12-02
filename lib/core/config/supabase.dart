@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:global_expert/export.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 late SupabaseClient supabase;
 List<String> cities = [];

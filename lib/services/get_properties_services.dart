@@ -85,7 +85,6 @@ class PropertyUploadService {
         .from('property')
         .select('*')
         .order('created_at', ascending: true);
-    ;
 
     log(response.toString());
     List<PropertyModel> properties =

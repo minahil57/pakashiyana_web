@@ -12,16 +12,16 @@ class PropertyManagementScreen extends StatelessWidget {
       child: Material(
         color: const Color(0xFFF8F9FD),
         child: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: GetBuilder<PropertiesController>(builder: (controller) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeaderView(),
+                const HeaderView(),
                 verticalSpaceLarge,
                 controller.addPropertyTrue
-                    ? Expanded(child: AddProperty())
-                    : Expanded(
+                    ? const Expanded(child: AddProperty())
+                    : const Expanded(
                         child: TableWidget(),
                       ),
               ],
