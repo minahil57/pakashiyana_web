@@ -158,58 +158,59 @@ class TableWidget extends StatelessWidget {
           ),
         ),
         DataCell(
-          GetBuilder<PropertiesController>(builder: (controller) {
-            return FittedBox(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      property.isApproved
-                          ? Icons.unpublished_outlined
-                          : Icons.check_circle_outlined,
-                    ),
-                    onPressed: () {
-                      controller.propertyService.makePropertyACtive(
-                          property.propertyId, property.isApproved);
-                      controller.refreshProperties();
-                    },
-                    tooltip: property.isApproved ? 'Deactivate' : 'Activate',
-                    color: property.isApproved ? Colors.red : Colors.green,
+          GetBuilder<PropertiesController>(
+              id: 'actions',
+              builder: (controller) {
+                return FittedBox(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          property.isApproved
+                              ? Icons.unpublished_outlined
+                              : Icons.check_circle_outlined,
+                        ),
+                        onPressed: () {
+                          controller.makePropertyACtive(
+                              property.propertyId, property.isApproved);
+                        },
+                        tooltip:
+                            property.isApproved ? 'Deactivate' : 'Activate',
+                        color: property.isApproved ? Colors.red : Colors.green,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          property.isPromoted ? Icons.star : Icons.star_border,
+                        ),
+                        onPressed: () {
+                          controller.makePropertyPromoted(
+                              property.propertyId, property.isPromoted);
+                        },
+                        tooltip: property.isPromoted
+                            ? 'Remove Promotion'
+                            : 'Promote',
+                        color: const Color(0xFFFFD700),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          property.isBlacklisted
+                              ? Icons.remove_circle_outline
+                              : Icons.block,
+                        ),
+                        onPressed: () async {
+                          controller.makePropertyBlackListed(
+                              property.propertyId, property.isBlacklisted);
+                        },
+                        tooltip: property.isBlacklisted
+                            ? 'Remove from Blacklist'
+                            : 'Blacklist',
+                        color: Colors.red,
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    icon: Icon(
-                      property.isPromoted ? Icons.star : Icons.star_border,
-                    ),
-                    onPressed: () {
-                      controller.propertyService.makePropertyPromoted(
-                          property.propertyId, property.isPromoted);
-                      controller.refreshProperties();
-                    },
-                    tooltip:
-                        property.isPromoted ? 'Remove Promotion' : 'Promote',
-                    color: const Color(0xFFFFD700),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      property.isBlacklisted
-                          ? Icons.remove_circle_outline
-                          : Icons.block,
-                    ),
-                    onPressed: () {
-                      controller.propertyService.makePropertyBlackListed(
-                          property.propertyId, property.isBlacklisted);
-                      controller.refreshProperties();
-                    },
-                    tooltip: property.isBlacklisted
-                        ? 'Remove from Blacklist'
-                        : 'Blacklist',
-                    color: Colors.red,
-                  ),
-                ],
-              ),
-            );
-          }),
+                );
+              }),
         ),
       ],
     );
@@ -261,17 +262,17 @@ class TableWidget extends StatelessWidget {
     }
   }
 
-  void showPropertyDetails(PropertyModel property) {}
+  //void showPropertyDetails(PropertyModel property) {}
 
-  void _togglePropertyStatus(PropertyModel property) {
-    // Implement status toggle
-  }
+  // void _togglePropertyStatus(PropertyModel property) {
+  //   // Implement status toggle
+  // }fy7y4
 
-  void _togglePromoted(PropertyModel property) {
-    // Implement promotion toggle
-  }
+  // void _togglePromoted(PropertyModel property) {
+  //   // Implement promotion toggle
+  // }
 
-  void _toggleBlacklist(PropertyModel property) {
-    // Implement blacklist toggle
-  }
+  // void _toggleBlacklist(PropertyModel property) {
+  //   // Implement blacklist toggle
+  // }
 }

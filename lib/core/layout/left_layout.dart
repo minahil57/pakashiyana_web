@@ -1,3 +1,4 @@
+import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
 
 class MyLayout extends StatefulWidget {
@@ -63,9 +64,12 @@ class _MyLayoutState extends State<MyLayout> {
                     },
                   ),
                 ),
-
-                // Profile Section
-                _buildProfileSection(),
+                PrimaryButton(
+                    text: 'Logout',
+                    onPressed: () {
+                      supabase.auth.signOut();
+                      Get.offAllNamed(Routes.login);
+                    })
               ],
             ),
           ),
@@ -167,51 +171,51 @@ class _MyLayoutState extends State<MyLayout> {
     );
   }
 
-  Widget _buildProfileSection() {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      margin: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF5F6FA),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 20,
-            backgroundColor: kcPrimaryColor,
-            child: Icon(Icons.person_outline, color: Colors.white),
-          ),
-          const SizedBox(width: 12),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Admin User',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  'Super Admin',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
+//   Widget _buildProfileSection() {
+//     return Container(
+//       padding: const EdgeInsets.all(24),
+//       margin: const EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: const Color(0xFFF5F6FA),
+//         borderRadius: BorderRadius.circular(16),
+//       ),
+//       child: Row(
+//         children: [
+//           const CircleAvatar(
+//             radius: 20,
+//             backgroundColor: kcPrimaryColor,
+//             child: Icon(Icons.person_outline, color: Colors.white),
+//           ),
+//           const SizedBox(width: 12),
+//           const Expanded(
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Admin User',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: 14,
+//                   ),
+//                 ),
+//                 Text(
+//                   'Super Admin',
+//                   style: TextStyle(
+//                     color: Colors.grey,
+//                     fontSize: 12,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           IconButton(
+//             icon: const Icon(Icons.settings_outlined),
+//             onPressed: () {},
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 }
 
 // Navigation item model

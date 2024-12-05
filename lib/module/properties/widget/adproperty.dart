@@ -14,7 +14,6 @@ class AddProperty extends StatelessWidget {
         children: [
           CategorySelector(),
           verticalSpaceMedium,
-          //const SelectorTabs(),
         ],
       ),
     ));
