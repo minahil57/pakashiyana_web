@@ -14,9 +14,14 @@ class PropertyUploadService {
     required File titleImageFile,
     required List<File> propertyImageFiles,
   }) async {
+    log(property.titleImage.toString());
+    log(property.propertyImages.toString());
+    log(propertyImageFiles.toString());
     try {
       // Generate unique folder name for this property
       final String folderName = const Uuid().v4();
+
+      log(folderName);
 
       // Upload title image
       final String titleImagePath = await _uploadImage(

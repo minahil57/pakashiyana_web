@@ -33,7 +33,7 @@ class LoginBody extends StatelessWidget {
           verticalSpaceMedium,
           PrimaryButton(
             text: 'Continue',
-            onPressed: controller.doLogin,
+            onPressed: () => controller.doLogin(),
             color: kcDarkPrimaryColor,
             buttonWidth: MediaQuery.sizeOf(context).width * 0.3,
           ),

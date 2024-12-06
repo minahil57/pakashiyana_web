@@ -1,6 +1,6 @@
 import 'package:global_expert/module/add_property/main/add_property_controller.dart';
 
-import '../../../export.dart';
+import '../../../../export.dart';
 
 class CategorySelector extends GetView<AddPropertyController> {
   const CategorySelector({super.key});

@@ -1,6 +1,6 @@
 import 'package:global_expert/export.dart';
 import 'package:global_expert/core/layout/left_layout.dart';
-import 'package:global_expert/module/properties/widget/adproperty.dart';
+import 'package:global_expert/module/properties/widget/add_property_widgets/adproperty.dart';
 
 class PropertyManagementScreen extends StatelessWidget {
   const PropertyManagementScreen({super.key});
