@@ -125,10 +125,9 @@ class TableWidget extends StatelessWidget {
             children: [
               _buildPropertySpec(
                   Icons.hotel_outlined, '${property.bedrooms} Beds'),
-              _buildPropertySpec(
-                  Icons.bathroom_outlined, '${property.bathrooms} Baths'),
+              
               _buildPropertySpec(Icons.square_foot_outlined,
-                  '${property.areaSize} ${_getAreaUnit(property.areaUnit)}'),
+                  '${property.areaSize} ${property.areaUnit}'),
             ],
           ),
         ),

@@ -18,6 +18,39 @@ class PropertiesController extends GetxController {
     update();
   }
 
+  void togglePropertyStatus(String propertyId, bool currentStatus) {
+    // Update in the local properties list
+    final propertyIndex =
+        properties.indexWhere((p) => p.propertyId == propertyId);
+    if (propertyIndex != -1) {
+      properties[propertyIndex] = properties[propertyIndex].copyWith(
+        isApproved: !currentStatus,
+      );
+    }
+    update();
+  }
+void togglePropertyPromotion(String propertyId, bool currentStatus) {
+    // Update in the local properties list
+    final propertyIndex =
+        properties.indexWhere((p) => p.propertyId == propertyId);
+    if (propertyIndex != -1) {
+      properties[propertyIndex] = properties[propertyIndex].copyWith(
+        isPromoted: !currentStatus,
+      );
+    }
+    update();
+  }
+  void togglePropertyBlacklisted(String propertyId, bool currentStatus) {
+    // Update in the local properties list
+    final propertyIndex =
+        properties.indexWhere((p) => p.propertyId == propertyId);
+    if (propertyIndex != -1) {
+      properties[propertyIndex] = properties[propertyIndex].copyWith(
+        isBlacklisted: !currentStatus,
+      );
+    }
+    update();
+  }
   void toggleAddProperty() {
     addProperty = !addPropertyTrue;
 

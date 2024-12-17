@@ -209,8 +209,8 @@ class AddPropertyController extends GetxController {
         property: PropertyModel(
             amenities: selectedAmenities,
             areaSize: int.parse(areaSizeController.text.trim()),
-            areaUnit: int.parse(areaUnitController.text.trim()),
-            bathrooms: int.parse(bathroomsController.text.trim()),
+            areaUnit: areaUnitController.text.trim(),
+           
             bedrooms: int.parse(bedroomsController.text.trim()),
             category: selectedCategory,
             description: descriptionController.text,

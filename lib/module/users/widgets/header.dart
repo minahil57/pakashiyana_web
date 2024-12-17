@@ -1,4 +1,3 @@
-
 import 'package:global_expert/export.dart';
 
 class HeaderUserView extends StatelessWidget {
@@ -6,46 +5,27 @@ class HeaderUserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'User Management',
-              style: getBoldStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: kcSecondaryColor,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Manage and monitor user accounts',
-              style: getRegularStyle(
-                color: kcTextGrey,
-                fontSize: 16,
-              ),
-            ),
-          ],
+        Text(
+          'User Management',
+          style: getBoldStyle(
+            fontSize: isSmallScreen ? 24 : 32,
+            fontWeight: FontWeight.bold,
+            color: kcSecondaryColor,
+          ),
         ),
-        // Row(
-        //   children: [
-        //     _buildActionButton(
-        //       'Export Users',
-        //       Icons.file_download_outlined,
-        //       onPressed: () {},
-        //     ),
-        //     const SizedBox(width: 16),
-        //     _buildActionButton(
-        //       'Add User',
-        //       Icons.person_add_outlined,
-        //       isPrimary: true,
-        //       onPressed: () {},
-        //     ),
-        //   ],
-        // ),
+        const SizedBox(height: 8),
+        Text(
+          'Manage and monitor user accounts',
+          style: getRegularStyle(
+            color: kcTextGrey,
+            fontSize: isSmallScreen ? 14 : 16,
+          ),
+        ),
       ],
     );
   }

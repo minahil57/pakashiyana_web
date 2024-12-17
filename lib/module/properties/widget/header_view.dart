@@ -10,33 +10,26 @@ class HeaderView extends StatelessWidget {
       builder: (controller) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Property Management',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: MediaQuery.of(context).size.width > 600 ? 32 : 24,
                   fontWeight: FontWeight.bold,
                   color: kcSecondaryColor,
                 ),
               ),
-              SizedBox(height: 8),
+              verticalSpaceSmall,
               Text(
                 'Manage and monitor property listings',
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 16,
+                  fontSize: MediaQuery.of(context).size.width > 600 ? 16 : 14,
                 ),
               ),
             ],
-          ),
-          PrimaryButton(
-            buttonWidth: 160,
-            text: 'Add Property',
-            onPressed: () {
-              controller.toggleAddProperty();
-            },
           ),
         ],
       ),
