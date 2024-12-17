@@ -39,13 +39,15 @@ class OtpBody extends StatelessWidget {
     return Column(
       children: [
         Pinput(
+          controller: controller.otpController,
+          length: 6,
           defaultPinTheme: controller.defaultPinTheme,
-          validator: (s) {
-            return s == '2222' ? null : 'Pin is incorrect';
-          },
+          // validator: (s) {
+          //   return s == '2222' ? null : 'Pin is incorrect';
+          // },
           pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
           showCursor: true,
-          onCompleted: (pin) => print(pin),
+          onCompleted: (pin) => controller.otpController.text = pin,
         ),
         verticalSpaceMedium,
         Center(

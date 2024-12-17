@@ -9,17 +9,17 @@ class UserManagementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(UserController());
-    return MyLayout(
+    return const MyLayout(
       child: Material(
         color: kcWhitecolor,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeaderUserView(),
-              const SizedBox(height: 16),
-              const Expanded(
+              HeaderUserView(),
+              SizedBox(height: 16),
+              Expanded(
                 child: UserListView(),
               ),
             ],

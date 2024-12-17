@@ -21,11 +21,11 @@ class TabSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.25,
+        maxWidth: MediaQuery.of(context).size.width * 0.2,
       ),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: kcDarkGreyColor,
+        color: kcLightGrey,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

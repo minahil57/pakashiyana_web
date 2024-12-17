@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
 import 'package:global_expert/services/get_properties_services.dart';
@@ -70,7 +71,51 @@ void togglePropertyPromotion(String propertyId, bool currentStatus) {
     await propertyService
         .getProperties()
         .then((value) => properties.value = value);
-    update();
+    update(['actions']);
+    refresh();
+  }
+
+  Future<void> makePropertyPromoted(String propertyId, bool isPromoted) async {
+    final response =
+        await propertyService.makePropertyPromoted(propertyId, isPromoted);
+    if (response == true) {
+      EasyLoading.showToast(
+        isPromoted == true
+            ? 'Property UnPromoted Successfully'
+            : 'Property Promoted Successfully',
+      );
+      await refreshProperties();
+      update();
+    }
+  }
+
+  Future<void> makePropertyBlackListed(
+      String propertyId, bool isBlacklisted) async {
+    final response = await propertyService.makePropertyBlackListed(
+        propertyId, isBlacklisted);
+    if (response == true) {
+      await refreshProperties();
+      EasyLoading.showToast(
+        isBlacklisted == true
+            ? 'Property UnBlacklisted Successfully'
+            : 'Property Blacklisted Successfully',
+      );
+      update();
+    }
+  }
+
+  Future<void> makePropertyACtive(String propertyId, bool isActive) async {
+    final response =
+        await propertyService.makePropertyACtive(propertyId, isActive);
+    if (response == true) {
+      await refreshProperties();
+      EasyLoading.showToast(
+          isActive == true
+              ? 'Property Deactivated Successfully'
+              : 'Property Activated Successfully',
+          toastPosition: EasyLoadingToastPosition.top);
+      update();
+    }
   }
   //final List<PropertyModel> properties = [
   //   PropertyModel(

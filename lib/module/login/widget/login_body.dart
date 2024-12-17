@@ -78,7 +78,7 @@ class LoginBody extends StatelessWidget {
           Center(
             child: PrimaryButton(
               text: 'Continue',
-              onPressed: controller.onContinuePressed,
+              onPressed: controller.doLogin,
               color: kcDarkPrimaryColor,
               buttonWidth: MediaQuery.of(context).size.width *
                   (MediaQuery.of(context).size.width > 600 ? 0.3 : 0.8),

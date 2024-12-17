@@ -8,6 +8,9 @@ class SplashController extends GetxController {
     super.onInit();
 
     Future.delayed(const Duration(seconds: 3), () {
+      // supabase.auth.currentUser?.id != null
+      //     ? Get.offAllNamed(Routes.dashboard)
+      //     : Get.offAllNamed(Routes.login);
       Get.offAllNamed(Routes.login);
     });
   }

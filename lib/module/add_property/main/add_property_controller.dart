@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
@@ -8,6 +9,7 @@ import 'package:global_expert/services/get_properties_services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddPropertyController extends GetxController {
+  late DropzoneViewController controller1;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PropertyUploadService propertyUploadService = PropertyUploadService();
   TextEditingController nameController = TextEditingController();
@@ -161,6 +163,7 @@ class AddPropertyController extends GetxController {
     if (xfilePick.isNotEmpty) {
       for (var i = 0; i < xfilePick.length; i++) {
         addImages(File(xfilePick[i].path));
+        update();
       }
     } else {
       ScaffoldMessenger.of(Get.context!)
@@ -238,7 +241,8 @@ class AddPropertyController extends GetxController {
         propertyImageFiles: images);
     EasyLoading.dismiss();
     if (response == true) {
-      //Snackbars.success('Property added successfully');
+      EasyLoading.showToast('Property Added Successfully');
+      Get.toNamed(Routes.dashboard);
       Get.back();
     } else {
       //Snackbars.error('Something went wrong');

@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/module/properties/models/properties_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,9 +14,14 @@ class PropertyUploadService {
     required File titleImageFile,
     required List<File> propertyImageFiles,
   }) async {
+    log(property.titleImage.toString());
+    log(property.propertyImages.toString());
+    log(propertyImageFiles.toString());
     try {
       // Generate unique folder name for this property
       final String folderName = const Uuid().v4();
+
+      log(folderName);
 
       // Upload title image
       final String titleImagePath = await _uploadImage(
@@ -80,7 +84,6 @@ class PropertyUploadService {
   }
 
   Future<List<PropertyModel>> getProperties() async {
-    EasyLoading.show();
     final response = await supabase
         .from('property')
         .select('*')
@@ -89,19 +92,15 @@ class PropertyUploadService {
     log(response.toString());
     List<PropertyModel> properties =
         response.map((property) => PropertyModel.fromMap(property)).toList();
-    EasyLoading.dismiss();
     return properties;
   }
 
   Future<List<PropertyModel>> getBlackListedProperties() async {
-    EasyLoading.show();
     final response =
         await supabase.from('property').select('*').eq('is_blacklisted', true);
     log(response.toString());
     List<PropertyModel> properties =
         response.map((property) => PropertyModel.fromMap(property)).toList();
-
-    EasyLoading.dismiss();
 
     return properties;
   }
@@ -121,40 +120,41 @@ class PropertyUploadService {
     }
   }
 
-  Future<void> makePropertyBlackListed(
+  Future<bool> makePropertyBlackListed(
       String propertyId, bool isBlacklisted) async {
     try {
-      EasyLoading.show();
       await supabase
           .from('property')
           .update({'is_blacklisted': !isBlacklisted}).eq('id', propertyId);
-      EasyLoading.dismiss();
+      return true;
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
-  Future<void> makePropertyPromoted(String propertyId, bool isPromoted) async {
+  Future<bool> makePropertyPromoted(String propertyId, bool isPromoted) async {
+    log(isPromoted.toString());
     try {
-      EasyLoading.show();
       await supabase
           .from('property')
           .update({'is_promoted': !isPromoted}).eq('id', propertyId);
-      EasyLoading.dismiss();
+      return true;
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
-  Future<void> makePropertyACtive(String propertyId, bool isActive) async {
+  Future<bool> makePropertyACtive(String propertyId, bool isActive) async {
     try {
-      EasyLoading.show();
       await supabase
           .from('property')
           .update({'is_active': !isActive}).eq('id', propertyId);
-      EasyLoading.dismiss();
+      return true;
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 }
