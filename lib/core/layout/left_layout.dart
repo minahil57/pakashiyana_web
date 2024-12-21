@@ -1,4 +1,5 @@
 import 'package:global_expert/export.dart';
+import 'package:global_expert/services/authentication_services.dart';
 
 class MyLayout extends StatefulWidget {
   final Widget child;
@@ -25,13 +26,18 @@ class _MyLayoutState extends State<MyLayout> {
       title: 'Properties',
       route: '/properties',
     ),
+    NavItem(
+      icon: Icons.add_business,
+      title: 'Add Properties',
+      route: '/add_property_view',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     final String currentRoute = Get.currentRoute;
     final bool isMobile = MediaQuery.of(context).size.width < 600;
-
+    final AuthServices authServices = AuthServices();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -41,10 +47,11 @@ class _MyLayoutState extends State<MyLayout> {
         actions: isMobile
             ? [
                 IconButton(
-                  icon: const Icon(Icons.person_outline, color: kcPrimaryColor),
-                  onPressed: () {
-                    // Show profile modal or navigate to profile
-                    _showProfileModal(context);
+                  icon: const Icon(Icons.logout, color: kcPrimaryColor),
+                  onPressed: () async {
+                    await authServices.logout();
+                    // // Show profile modal or navigate to profile
+                    // _showProfileModal(context);
                   },
                 ),
               ]
@@ -150,9 +157,9 @@ class _MyLayoutState extends State<MyLayout> {
     );
   }
 
-  int _getCurrentIndex(String currentRoute) {
-    return navItems.indexWhere((item) => item.route == currentRoute);
-  }
+  // int _getCurrentIndex(String currentRoute) {
+  //   return navItems.indexWhere((item) => item.route == currentRoute);
+  // }
 
   Widget _buildLogoSection(bool isMobile) {
     if (isMobile) {

@@ -1,7 +1,7 @@
 import 'package:global_expert/export.dart';
 import 'package:global_expert/core/layout/left_layout.dart';
+import 'package:global_expert/module/properties/widget/dropdown_city.dart';
 import 'package:global_expert/module/properties/widget/property_list.dart';
-import 'package:global_expert/module/properties/widget/add_property_widgets/adproperty.dart';
 
 class PropertyManagementScreen extends StatelessWidget {
   const PropertyManagementScreen({super.key});
@@ -15,14 +15,17 @@ class PropertyManagementScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: GetBuilder<PropertiesController>(builder: (controller) {
-            return Column(
+            return const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HeaderView(),
+                HeaderView(),
                 verticalSpaceMedium,
-                controller.addPropertyTrue
-                    ? const Expanded(child: AddProperty())
-                    : const Expanded(
+                 LocationDropdown(), // Add the dropdown here
+                verticalSpaceMedium,
+                // controller.addPropertyTrue
+                //     ? const Expanded(child: AddProperty())
+                //     :
+                     Expanded(
                         child: PropertyListView(),
                       ),
               ],

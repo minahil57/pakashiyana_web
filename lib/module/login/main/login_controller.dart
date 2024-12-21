@@ -47,8 +47,9 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> verifyOTP(String otp) async {
-    bool success = await authServices.verifyOTP(emailController.text, otp);
+  Future<void> verifyOTP() async {
+    bool success =
+        await authServices.verifyOTP(emailController.text, otpController.text);
     log(success.toString());
     if (success) {
       log(supabase.auth.currentUser!.id.toString());
@@ -65,7 +66,7 @@ class LoginController extends GetxController {
     height: 56,
     textStyle: getMediumStyle(),
     decoration: BoxDecoration(
-      border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
+      border: Border.all(color: kcDarkPrimaryColor.withOpacity(0.5)),
       borderRadius: BorderRadius.circular(20),
     ),
   );

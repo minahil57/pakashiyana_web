@@ -19,6 +19,23 @@ class PropertiesController extends GetxController {
     update();
   }
 
+  String? selectedLocation;
+  List<String> get uniqueLocations => properties
+      .map((p) => p.city.toUpperCase())
+      .toSet()
+      .toList(); // Gets unique locations
+
+  List<PropertyModel> get filteredProperties => selectedLocation == null
+      ? properties
+      : properties
+          .where((p) => p.city.toUpperCase() == selectedLocation)
+          .toList();
+
+  void setLocation(String? location) {
+    selectedLocation = location;
+    update();
+  }
+
   void togglePropertyStatus(String propertyId, bool currentStatus) {
     // Update in the local properties list
     final propertyIndex =
@@ -30,7 +47,8 @@ class PropertiesController extends GetxController {
     }
     update();
   }
-void togglePropertyPromotion(String propertyId, bool currentStatus) {
+
+  void togglePropertyPromotion(String propertyId, bool currentStatus) {
     // Update in the local properties list
     final propertyIndex =
         properties.indexWhere((p) => p.propertyId == propertyId);
@@ -41,6 +59,7 @@ void togglePropertyPromotion(String propertyId, bool currentStatus) {
     }
     update();
   }
+
   void togglePropertyBlacklisted(String propertyId, bool currentStatus) {
     // Update in the local properties list
     final propertyIndex =
@@ -52,6 +71,7 @@ void togglePropertyPromotion(String propertyId, bool currentStatus) {
     }
     update();
   }
+
   void toggleAddProperty() {
     addProperty = !addPropertyTrue;
 

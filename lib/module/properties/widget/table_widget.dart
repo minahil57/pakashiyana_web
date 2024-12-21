@@ -250,16 +250,16 @@ class TableWidget extends StatelessWidget {
     );
   }
 
-  String _getAreaUnit(int unit) {
-    switch (unit) {
-      case 0:
-        return 'sq ft';
-      case 1:
-        return 'sq m';
-      default:
-        return 'sq ft';
-    }
-  }
+  // String _getAreaUnit(int unit) {
+  //   switch (unit) {
+  //     case 0:
+  //       return 'sq ft';
+  //     case 1:
+  //       return 'sq m';
+  //     default:
+  //       return 'sq ft';
+  //   }
+  // }
 
   //void showPropertyDetails(PropertyModel property) {}
 

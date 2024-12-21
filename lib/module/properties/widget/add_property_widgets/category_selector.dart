@@ -1,4 +1,4 @@
-import 'package:global_expert/module/add_property/main/add_property_controller.dart';
+
 
 import '../../../../export.dart';
 
@@ -33,7 +33,7 @@ class CategorySelector extends GetView<AddPropertyController> {
                           controller.selectedCategory == e.name;
                       return GestureDetector(
                         onTap: () {
-                          controller.setSelectedCategory = e.name;
+                          controller.selectedCategory = e.name!;
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -43,7 +43,7 @@ class CategorySelector extends GetView<AddPropertyController> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            e.name,
+                            e.name!,
                             style: getRegularStyle(
                               fontSize: 12,
                               color: isSelected ? kcWhitecolor : kcBlackColor,

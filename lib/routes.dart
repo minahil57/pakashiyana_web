@@ -1,5 +1,5 @@
 import 'package:global_expert/export.dart';
-import 'package:global_expert/module/add_property/main/add_property_view.dart';
+
 
 class Routes {
   static const String login = '/auth/login';
@@ -22,7 +22,7 @@ class AppRouter {
       GetPage(
           name: Routes.properties,
           page: () => const PropertyManagementScreen()),
-      GetPage(name: Routes.addProperty, page: () => const AddPropertyScreen()),
+      GetPage(name: Routes.addProperty, page: () => const AddPropertyView()),
     ];
   }
 }

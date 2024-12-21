@@ -1,15 +1,13 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/core/config/supabase.dart';
 import 'package:global_expert/export.dart';
 import 'package:global_expert/services/get_properties_services.dart';
-import 'package:image_picker/image_picker.dart';
 
-class AddPropertyController extends GetxController {
-  late DropzoneViewController controller1;
+
+class HouseController extends GetxController {
+  final AddPropertyController addPropertyController = Get.find();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   PropertyUploadService propertyUploadService = PropertyUploadService();
   TextEditingController nameController = TextEditingController();
@@ -22,72 +20,29 @@ class AddPropertyController extends GetxController {
   TextEditingController bedroomsController = TextEditingController();
   TextEditingController bathroomsController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
-
-  int selectedImageIndex = 0;
-
-  final picker = ImagePicker();
-  List<File> _images = [];
-  List<File> get images => _images;
-  List<String> homeAmenities = [
-    'Lift',
-    'Net',
-    'Window View',
-    'Car Parking',
-    'Gas',
-    'Electricity (WAPDA)',
-    'Water',
-  ];
-  List<String> apartmentAmenities = [
-    'Lift',
-    'Net',
-    'Window View',
-    'Car Parking',
-    'Gas',
-    'Electricity (WAPDA)',
-    'Water',
-  ];
-  List<String> plotAmenities = [
-    'Boundary Wall',
-    'Water',
-    'Road Access',
-  ];
-  List<String> shopAmenities = [
-    'Separate Electricity',
-    'Water',
-  ];
-  List<String> plazaAmenities = [
-    'Car Parking',
-    'Gas',
-    'Electricity (WAPDA)',
-    'Water',
-    'Block Construction',
-    'Brick Construction',
-    'RCC Construction',
-  ];
-  List<String> landAmenities = [
-    'Road Access',
-    'Construction Included',
-    'Agriculture',
-    'Water',
-  ];
-  List<String> selectedAmenities = [];
-  void addImages(File type) {
-    _images.add(type);
-    update();
-  }
-
-  void setImages(List<File> newImages) {
-    _images = newImages;
-    update();
-  }
-
-  List features = [];
+  TextEditingController floors = TextEditingController();
 
   String _propertyType = '';
   String get propertyType => _propertyType;
 
   set setPropertyType(String type) {
     _propertyType = type;
+    update();
+  }
+
+  List<String> titles = [
+    'House',
+    'Villa',
+    'Banglow',
+    'Farmhouse',
+    'Haveli',
+  ];
+
+  String _title = '';
+  String get title => _title;
+
+  set setTitle(String type) {
+    _title = type;
     update();
   }
 
@@ -100,6 +55,14 @@ class AddPropertyController extends GetxController {
 
   set setState(String type) {
     _state = type;
+    update();
+  }
+
+  String _areaUnit = '';
+  String get areaUnit => _areaUnit;
+
+  set setAreaUnit(String type) {
+    _areaUnit = type;
     update();
   }
 
@@ -120,7 +83,7 @@ class AddPropertyController extends GetxController {
     update();
   }
 
-  String _propertyFor = '';
+  String _propertyFor = 'Rent';
   String get propertyFor => _propertyFor;
   set setProperty(String tab) {
     _propertyFor = tab;
@@ -129,6 +92,13 @@ class AddPropertyController extends GetxController {
 
   void setPropertyFor(String type) {
     setProperty = type;
+  }
+
+  String _leaseAgreement = '';
+  String get leaseAgreement => _leaseAgreement;
+  set setLeaseAgreement(String type) {
+    _leaseAgreement = type;
+    update();
   }
 
   String _furnished = '';
@@ -155,67 +125,42 @@ class AddPropertyController extends GetxController {
     setConstructionState = type;
   }
 
-  Future getImages() async {
-    final pickedFile = await picker.pickMultiImage(
-        imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
-    List<XFile> xfilePick = pickedFile;
-
-    if (xfilePick.isNotEmpty) {
-      for (var i = 0; i < xfilePick.length; i++) {
-        addImages(File(xfilePick[i].path));
-        update();
-      }
-    } else {
-      ScaffoldMessenger.of(Get.context!)
-          .showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-    }
-  }
-
-  void updateSelectedImageIndex(int index) {
-    selectedImageIndex = index;
-    update();
-  }
-
-  void deleteImage(int index) {
-    images.removeAt(index);
-    if (selectedImageIndex >= images.length) {
-      selectedImageIndex = images.length - 1;
-    }
-    if (selectedImageIndex < 0) {
-      selectedImageIndex = 0;
-    }
-    update();
-  }
-
-  List<PropertFilter> categories = [
-    PropertFilter('House', 'assets/images/house_icon.png'),
-    PropertFilter('Appartment', 'assets/images/appartment_icon.png'),
-    PropertFilter('Shops', 'assets/images/shop_icon.png'),
-    PropertFilter('Plaza', 'assets/images/plaza_icon.png'),
-    PropertFilter('Land', 'assets/images/land_icon.png'),
-    PropertFilter('Plots', 'assets/images/plot_icon.png'),
+  List<String> homeAmenities = [
+    'Net',
+    'Window View',
+    'Car Parking',
+    'Gas',
+    'Electricity (WAPDA)',
+    'Water',
   ];
 
-  String _selectedCategory = 'House';
+  List<String> selectedAmenities = [];
 
-  String get selectedCategory => _selectedCategory;
-
-  set setSelectedCategory(String type) {
-    _selectedCategory = type;
-    update();
+  void postHome() {
+    if (formKey.currentState!.validate()) {
+      if (city == '' ||
+          state == '' ||
+          addPropertyController.images.isEmpty ||
+          selectedAmenities.isEmpty ||
+          builtInYear == '') {
+        Snackbars.error('Please Enter Complete Details');
+      } else {
+        addProperty();
+      }
+    }
   }
 
   Future<void> addProperty() async {
     EasyLoading.show();
-    // if (formKey.currentState!.validate()) {
     final response = await propertyUploadService.uploadPropertyWithImages(
         property: PropertyModel(
             amenities: selectedAmenities,
             areaSize: int.parse(areaSizeController.text.trim()),
-            areaUnit: areaUnitController.text.trim(),
-           
-            bedrooms: int.parse(bedroomsController.text.trim()),
-            category: selectedCategory,
+            areaUnit: areaUnit,
+            bedrooms: bedroomsController.text.trim().isEmpty
+                ? null
+                : int.parse(bedroomsController.text.trim()),
+            category: addPropertyController.selectedCategory,
             description: descriptionController.text,
             isApproved: false,
             propertState: constructionState,
@@ -229,24 +174,28 @@ class AddPropertyController extends GetxController {
             propertyFor: propertyFor,
             propertyId: '',
             propertyImages: [],
-            propertyTitle: propertyTitleController.text,
+            propertyTitle: title,
             propertyType: propertyType,
             titleImage: '',
             uid: supabase.auth.currentUser!.id,
-            builtIn: int.parse(builtInYear),
+            builtIn: builtInYear.isEmpty ? null : int.parse(builtInYear),
             userViews: [],
+            floors: int.parse(floors.text.trim()),
+            floor: null,
             state: state,
             city: city),
-        titleImageFile: images.first,
-        propertyImageFiles: images);
+        titleImageFile: addPropertyController.images.first,
+        propertyImageFiles: addPropertyController.images);
     EasyLoading.dismiss();
     if (response == true) {
-      EasyLoading.showToast('Property Added Successfully');
-      Get.toNamed(Routes.dashboard);
-      Get.back();
+      EasyLoading.dismiss();
+      Snackbars.success('Property added successfully');
+      Get.offNamed(Routes.dashboard);
     } else {
-      //Snackbars.error('Something went wrong');
+      EasyLoading.dismiss();
+      Snackbars.error('Something went wrong');
     }
+    EasyLoading.dismiss();
   }
 
   Future<void> selectYear(BuildContext context) async {
@@ -282,10 +231,33 @@ class AddPropertyController extends GetxController {
       },
     );
   }
-}
 
-class PropertFilter {
-  String name;
-  String icon;
-  PropertFilter(this.name, this.icon);
+  @override
+  void onInit() {
+    super.onInit();
+    if (addPropertyController.propertyModel != null) {
+      selectedAmenities = addPropertyController.propertyModel!.amenities;
+      setPropertyType = addPropertyController.propertyModel!.propertyType;
+      setPropertyFor(addPropertyController.propertyModel!.propertyFor!);
+      setFurnished = addPropertyController.propertyModel!.propertyStatus!;
+      setState = addPropertyController.propertyModel!.state;
+      setCity = addPropertyController.propertyModel!.city;
+      setBuiltInYear = addPropertyController.propertyModel!.builtIn.toString();
+      floors.text = addPropertyController.propertyModel!.floor.toString();
+      setAreaUnit = addPropertyController.propertyModel!.areaUnit.toString();
+      // setLeaseAgreement = addPropertyController.propertyModel!.
+      bedroomsController.text =
+          addPropertyController.propertyModel!.bedrooms.toString();
+      areaSizeController.text =
+          addPropertyController.propertyModel!.areaSize.toString();
+      priceController.text =
+          addPropertyController.propertyModel!.price.toString();
+      nameController.text = addPropertyController.propertyModel!.propertyTitle;
+      descriptionController.text =
+          addPropertyController.propertyModel!.description;
+      addressController.text = addPropertyController.propertyModel!.location;
+      phoneNumberController.text = addPropertyController.propertyModel!.phoneNo;
+      update();
+    }
+  }
 }

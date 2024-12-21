@@ -1,9 +1,6 @@
 import 'dart:developer';
 
 import 'package:csc_picker/csc_picker.dart';
-import 'package:global_expert/module/add_property/main/add_property_controller.dart';
-import 'package:global_expert/module/properties/widget/add_property_widgets/category_selector.dart';
-import 'package:global_expert/module/properties/widget/selector_tabs.dart';
 import 'package:global_expert/widgets/amenities_dropdown.dart';
 import 'package:global_expert/widgets/custom_textfield.dart';
 import 'package:global_expert/widgets/text_with_asteric.dart';
@@ -73,9 +70,9 @@ class AddProperty extends StatelessWidget {
                           text: 'Upload Images',
                           onPressed: () {
                             controller.getImages();
-                          })
+                          },),
                     ],
-                  )),
+                  ),),
 //               SizedBox(
 //   height: 300,
 //   child: Container(
@@ -140,7 +137,7 @@ class AddProperty extends StatelessWidget {
               verticalSpaceMedium,
               const CategorySelector(),
               verticalSpaceMedium,
-              const SelectorTabs(),
+               const SelectorTabs(),
               verticalSpaceMedium,
               GestureDetector(
                 onTap: () {
@@ -372,10 +369,10 @@ class AddProperty extends StatelessWidget {
                 keyboardType: TextInputType.number,
               ),
               verticalSpace(20),
-              PrimaryButton(
-                text: 'Publish',
-                onPressed: () => controller.addProperty(),
-              ),
+              // PrimaryButton(
+              //   text: 'Publish',
+              //   onPressed: () => controller.(),
+              // ),
             ],
           ),
         );

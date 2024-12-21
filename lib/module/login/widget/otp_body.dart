@@ -53,7 +53,7 @@ class OtpBody extends StatelessWidget {
         Center(
           child: PrimaryButton(
             text: 'Login',
-            onPressed: controller.login,
+            onPressed: controller.verifyOTP,
             color: kcDarkPrimaryColor,
             buttonWidth: MediaQuery.of(context).size.width *
                 (MediaQuery.of(context).size.width > 600 ? 0.3 : 0.8),

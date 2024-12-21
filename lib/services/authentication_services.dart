@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:global_expert/core/config/supabase.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:global_expert/export.dart';
 
 class AuthServices {
   Future<bool> login(String email) async {
@@ -11,6 +11,8 @@ class AuthServices {
         email: email,
       );
       log("OTP sent to email: $email");
+      // final SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setBool('isLoggedIn', true);
       EasyLoading.dismiss();
       return true;
     } catch (e) {
@@ -31,6 +33,7 @@ class AuthServices {
 
       log("OTP sent to email: $email");
       EasyLoading.dismiss();
+
       return true;
     } catch (e) {
       EasyLoading.dismiss();
@@ -63,5 +66,12 @@ class AuthServices {
       log('Error: $error');
       return false;
     }
+  }
+
+  Future<void> logout() async {
+    await supabase.auth.signOut();
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setBool('isLoggedIn', false);
+    Get.offAllNamed(Routes.login);
   }
 }

@@ -3,3 +3,4 @@ export 'splash_screen/export.dart';
 export 'dashboard/export.dart';
 export 'users/export.dart';
 export 'properties/export.dart';
+export 'add_property/export.dart';

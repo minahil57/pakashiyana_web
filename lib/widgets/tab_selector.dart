@@ -21,7 +21,7 @@ class TabSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.2,
+        maxWidth: MediaQuery.of(context).size.width * 0.45,
       ),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(

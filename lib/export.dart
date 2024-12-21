@@ -9,6 +9,7 @@ export 'package:pinput/pinput.dart';
 export 'package:data_table_2/data_table_2.dart';
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:supabase_flutter/supabase_flutter.dart' hide MultipartFile;
+export 'package:image_picker/image_picker.dart';
 
 //In app Exports
 export 'main.dart';

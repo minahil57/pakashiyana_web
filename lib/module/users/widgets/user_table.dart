@@ -182,45 +182,45 @@ class UserTable extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileImage(UserData user) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: const Color(0xFF1A237E).withOpacity(0.1),
-          width: 2,
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: user.profileImage != null
-            ? Image.network(
-                user.profileImage!,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    _buildProfilePlaceholder(user),
-              )
-            : _buildProfilePlaceholder(user),
-      ),
-    );
-  }
+  // Widget _buildProfileImage(UserData user) {
+  //   return Container(
+  //     width: 40,
+  //     height: 40,
+  //     decoration: BoxDecoration(
+  //       shape: BoxShape.circle,
+  //       border: Border.all(
+  //         color: const Color(0xFF1A237E).withOpacity(0.1),
+  //         width: 2,
+  //       ),
+  //     ),
+  //     child: ClipRRect(
+  //       borderRadius: BorderRadius.circular(20),
+  //       child: user.profileImage != null
+  //           ? Image.network(
+  //               user.profileImage!,
+  //               fit: BoxFit.cover,
+  //               errorBuilder: (context, error, stackTrace) =>
+  //                   _buildProfilePlaceholder(user),
+  //             )
+  //           : _buildProfilePlaceholder(user),
+  //     ),
+  //   );
+  // }
 
-  Widget _buildProfilePlaceholder(UserData user) {
-    return Container(
-      color: kcDarkPrimaryColor.withOpacity(0.1),
-      child: Center(
-        child: Text(
-          user.name.substring(0, 1).toUpperCase(),
-          style: getRegularStyle(
-            color: kcDarkPrimaryColor,
-            fontSize: 16,
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildProfilePlaceholder(UserData user) {
+  //   return Container(
+  //     color: kcDarkPrimaryColor.withOpacity(0.1),
+  //     child: Center(
+  //       child: Text(
+  //         user.name.substring(0, 1).toUpperCase(),
+  //         style: getRegularStyle(
+  //           color: kcDarkPrimaryColor,
+  //           fontSize: 16,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildStatusBadge(bool isActive) {
     return Container(
@@ -241,9 +241,9 @@ class UserTable extends StatelessWidget {
     );
   }
 
-  void _showUserDetails(UserData user) {
-    // Implement user details modal/dialog
-  }
+  // void _showUserDetails(UserData user) {
+  //   // Implement user details modal/dialog
+  // }
 
   void _toggleUserStatus(UserData user) {
     final controller = Get.put(UserController());

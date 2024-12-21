@@ -1,5 +1,4 @@
 import 'package:global_expert/export.dart';
-import 'package:global_expert/module/add_property/main/add_property_controller.dart';
 import 'package:global_expert/widgets/tab_selector.dart';
 import 'package:global_expert/widgets/text_with_asteric.dart';
 

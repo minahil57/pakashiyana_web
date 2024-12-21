@@ -7,17 +7,18 @@ class PropertyListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PropertiesController>(
-      builder: (controller) => properties.isEmpty
+      builder: (controller) => controller.filteredProperties.isEmpty
           ? const BuildEmptyProperty()
           : ListView.builder(
-              itemCount: properties.length,
+              itemCount: controller.filteredProperties.length,
               itemBuilder: (context, index) => PropertyCard(
-                property: properties[index],
+                property: controller.filteredProperties[index],
               ),
             ),
     );
   }
 }
+
 
 // property_card.dart
 class PropertyCard extends StatelessWidget {
